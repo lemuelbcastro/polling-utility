@@ -1,11 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Button from "@material-ui/core/Button";
+import { CssBaseline } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core/styles";
 import "fontsource-roboto";
 
+import theme from './theme'
+import Main from "./components/Main";
+
 ReactDOM.render(
-  <Button variant="contained" color="primary">
-    Hello World
-  </Button>,
+  <ThemeProvider theme={theme}>
+    <CssBaseline/>
+    <Main />
+  </ThemeProvider>,
   document.getElementById("root")
 );
