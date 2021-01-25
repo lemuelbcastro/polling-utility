@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { AppBar, Button, IconButton, Toolbar, Typography } from "@material-ui/core";
-import SettingsIcon from '@material-ui/icons/Settings';
+import {
+  AppBar,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import SettingsIcon from "@material-ui/icons/Settings";
+
+import Settings from "../Settings";
 
 const useStyles = makeStyles({
   flexGrow: {
@@ -11,19 +18,27 @@ const useStyles = makeStyles({
 
 const Header = () => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
   return (
-    <AppBar position="sticky" className={classes.root}>
-      <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          Header
-        </Typography>
-        <div className={classes.flexGrow} />
-        <IconButton color="inherit">
-          <SettingsIcon />
-        </IconButton>
-      </Toolbar>
-    </AppBar>
+    <React.Fragment>
+      <AppBar position="sticky" className={classes.root}>
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            Header
+          </Typography>
+          <div className={classes.flexGrow} />
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={() => setOpen(true)}
+          >
+            <SettingsIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Settings open={open} handleClose={() => setOpen(false)} />
+    </React.Fragment>
   );
 };
 
