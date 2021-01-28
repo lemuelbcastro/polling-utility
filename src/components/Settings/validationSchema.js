@@ -5,7 +5,7 @@ const validationSchema = yup.object().shape({
     url: yup
       .string()
       .url("Please provide a valid URL")
-      .when(['enabled'], {
+      .when(["enabled"], {
         is: true,
         then: yup.string().required("This field is required"),
       }),
@@ -14,10 +14,21 @@ const validationSchema = yup.object().shape({
   auth: yup.object().shape({
     url: yup
       .string()
-      .url("Please provide a valid URL")
       .required("This field is required"),
-    username: yup.string().required("This field is required"),
-    password: yup.string().required("This field is required"),
+    requestBody: yup
+      .string()
+      .test("isValidJson", "Please provide a valid JSON string", (value) => {
+        try {
+          let parsed = JSON.parse(value);
+
+          if (parsed && typeof parsed === "object") {
+            return true;
+          }
+        } catch (e) {}
+
+        return false;
+      })
+      .required("This field is required"),
   }),
 });
 

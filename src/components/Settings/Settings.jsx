@@ -31,8 +31,7 @@ const defaults = {
   },
   auth: {
     url: "",
-    username: "",
-    password: "",
+    requestBody: "",
   },
 };
 

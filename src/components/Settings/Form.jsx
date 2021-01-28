@@ -29,6 +29,7 @@ const Form = (props) => {
     defaultValues,
     resolver: yupResolver(validationSchema),
   });
+  const apiBaseEnabled = watch("apiBase.enabled");
 
   return (
     <div className={classes.root}>
@@ -45,7 +46,7 @@ const Form = (props) => {
           label="URL"
           name="apiBase.url"
           type="text"
-          disabled={!watch("apiBase.enabled")}
+          disabled={!apiBaseEnabled}
           error={errors?.apiBase?.url ? true : false}
           helperText={errors?.apiBase?.url?.message}
         />
@@ -74,7 +75,7 @@ const Form = (props) => {
           fullWidth
           variant="outlined"
           margin="dense"
-          label="URL"
+          label={apiBaseEnabled ? "Path" : "URL"}
           name="auth.url"
           type="text"
           error={errors?.auth?.url ? true : false}
@@ -84,25 +85,15 @@ const Form = (props) => {
           as={TextField}
           control={control}
           fullWidth
-          variant="outlined"
+          label="Request Body"
           margin="dense"
-          label="Username"
-          name="auth.username"
-          type="text"
-          error={errors?.auth?.username ? true : false}
-          helperText={errors?.auth?.username?.message}
-        />
-        <Controller
-          as={TextField}
-          control={control}
-          fullWidth
+          name="auth.requestBody"
           variant="outlined"
-          margin="dense"
-          label="Password"
-          name="auth.password"
-          type="password"
-          error={errors?.auth?.password ? true : false}
-          helperText={errors?.auth?.password?.message}
+          multiline
+          rows={10}
+          rowsMax={10}
+          error={errors?.auth?.requestBody ? true : false}
+          helperText={errors?.auth?.requestBody?.message}
         />
       </form>
     </div>
@@ -111,7 +102,7 @@ const Form = (props) => {
 
 Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  defaultValues: PropTypes.object.isRequired
+  defaultValues: PropTypes.object.isRequired,
 };
 
 export default Form;
