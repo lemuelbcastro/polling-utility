@@ -1,26 +1,23 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  AppBar,
-  Dialog,
-  IconButton,
-  Toolbar,
+  Divider,
+  FormControlLabel,
+  Switch,
+  TextField,
   Typography,
-  Slide,
 } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
-import SaveIcon from "@material-ui/icons/Save";
 import Store from "electron-store";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-import Form from "./Form.jsx";
+import validationSchema from "./validationSchema";
+
+import FormDialog from "../UI/FormDialog.jsx";
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: "relative",
-  },
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
+  divider: {
+    margin: theme.spacing(1, 0),
   },
 }));
 
@@ -37,45 +34,89 @@ const defaults = {
 
 const store = new Store({ defaults });
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
 const Settings = (props) => {
   const { open, handleClose } = props;
   const classes = useStyles();
+  const { control, handleSubmit, errors, watch } = useForm({
+    defaultValues: store.store,
+    resolver: yupResolver(validationSchema),
+  });
+  const apiBaseEnabled = watch("apiBase.enabled");
 
   const onSubmit = (data) => {
     store.store = data;
+    handleClose();
   };
 
   return (
-    <Dialog
-      fullScreen
+    <FormDialog
       open={open}
-      onClose={handleClose}
-      TransitionComponent={Transition}
+      handleClose={handleClose}
+      handleSubmit={handleSubmit(onSubmit)}
+      title="Settings"
     >
-      <AppBar className={classes.appBar}>
-        <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Settings
-          </Typography>
-          <IconButton
-            edge="start"
-            color="inherit"
-            type="submit"
-            form="settings-form"
-          >
-            <SaveIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Form onSubmit={onSubmit} defaultValues={store.store} />
-    </Dialog>
+      <Typography variant="subtitle2" gutterBottom>
+        API Base
+      </Typography>
+      <Controller
+        as={TextField}
+        control={control}
+        fullWidth
+        variant="outlined"
+        margin="dense"
+        label="URL"
+        name="apiBase.url"
+        type="text"
+        disabled={!apiBaseEnabled}
+        error={errors?.apiBase?.url ? true : false}
+        helperText={errors?.apiBase?.url?.message}
+      />
+      <FormControlLabel
+        control={
+          <Controller
+            name="apiBase.enabled"
+            control={control}
+            render={(props) => (
+              <Switch
+                onChange={(e) => props.onChange(e.target.checked)}
+                checked={props.value}
+              />
+            )}
+          />
+        }
+        label="Enabled"
+      />
+      <Divider className={classes.divider} />
+      <Typography variant="subtitle2" gutterBottom>
+        API Authenticaion
+      </Typography>
+      <Controller
+        as={TextField}
+        control={control}
+        fullWidth
+        variant="outlined"
+        margin="dense"
+        label={apiBaseEnabled ? "Path" : "URL"}
+        name="auth.url"
+        type="text"
+        error={errors?.auth?.url ? true : false}
+        helperText={errors?.auth?.url?.message}
+      />
+      <Controller
+        as={TextField}
+        control={control}
+        fullWidth
+        label="Request Body"
+        margin="dense"
+        name="auth.requestBody"
+        variant="outlined"
+        multiline
+        rows={10}
+        rowsMax={10}
+        error={errors?.auth?.requestBody ? true : false}
+        helperText={errors?.auth?.requestBody?.message}
+      />
+    </FormDialog>
   );
 };
 
