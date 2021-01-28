@@ -12,7 +12,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import SaveIcon from "@material-ui/icons/Save";
 import Store from "electron-store";
 
-import Form from './Form.jsx'
+import Form from "./Form.jsx";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -41,7 +41,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog(props) {
+const Settings = (props) => {
   const { open, handleClose } = props;
   const classes = useStyles();
 
@@ -58,21 +58,17 @@ export default function FullScreenDialog(props) {
     >
       <AppBar className={classes.appBar}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={handleClose}
-          >
+          <IconButton edge="start" color="inherit" onClick={handleClose}>
             <CloseIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Settings
           </Typography>
-           <IconButton
+          <IconButton
             edge="start"
             color="inherit"
             type="submit"
-            form='settings-form'
+            form="settings-form"
           >
             <SaveIcon />
           </IconButton>
@@ -81,4 +77,6 @@ export default function FullScreenDialog(props) {
       <Form onSubmit={onSubmit} defaultValues={store.store} />
     </Dialog>
   );
-}
+};
+
+export default Settings;
