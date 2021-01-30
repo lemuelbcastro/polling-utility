@@ -3,7 +3,7 @@ import Store from "electron-store";
 import axios from "./axios";
 import session from "./session";
 
-const store = new Store().store;
+const store = new Store();
 
 const handler = {
   success: (response) => response,
@@ -13,7 +13,7 @@ const handler = {
     if (response) {
       switch (response.status) {
         case 401:
-          const { apiBase, auth } = store;
+          const { apiBase, auth } = store.get("settings");
 
           const response = await axios.post(auth.url, JSON.parse(auth.requestBody), {
             baseURL: apiBase.enabled ? apiBase.url : undefined,

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Divider,
@@ -7,12 +8,11 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import Store from "electron-store";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Store from "electron-store";
 
 import validationSchema from "./validationSchema";
-
 import FormDialog from "../UI/FormDialog.jsx";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,30 +21,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const defaults = {
-  apiBase: {
-    url: "",
-    enabled: true,
-  },
-  auth: {
-    url: "",
-    requestBody: "",
-  },
-};
-
-const store = new Store({ defaults });
+const store = new Store();
 
 const Settings = (props) => {
   const { open, handleClose } = props;
   const classes = useStyles();
-  const { control, handleSubmit, errors, watch } = useForm({
-    defaultValues: store.store,
+  const { control, handleSubmit, errors, watch, reset } = useForm({
+    defaultValues: store.get("settings"),
     resolver: yupResolver(validationSchema),
   });
   const apiBaseEnabled = watch("apiBase.enabled");
 
+  useEffect(() => {
+    if (open) {
+      reset(store.get("settings"));
+    }
+  }, [open]);
+
   const onSubmit = (data) => {
-    store.store = data;
+    store.set("settings", data);
     handleClose();
   };
 
@@ -80,6 +75,7 @@ const Settings = (props) => {
               <Switch
                 onChange={(e) => props.onChange(e.target.checked)}
                 checked={props.value}
+                color="primary"
               />
             )}
           />
@@ -118,6 +114,11 @@ const Settings = (props) => {
       />
     </FormDialog>
   );
+};
+
+Settings.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };
 
 export default Settings;
