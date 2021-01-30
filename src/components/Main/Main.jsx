@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Store from "electron-store";
 
@@ -8,6 +7,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Task from "../Task";
 import AddTask from "../Task/AddTask.jsx";
+import Fab from "../UI/Fab.jsx";
 
 const store = new Store({
   defaults: {
@@ -23,6 +23,7 @@ const store = new Store({
       },
     },
   },
+  watch: true,
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -35,17 +36,16 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     padding: theme.spacing(1),
   },
-  fab: {
-    position: "absolute",
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
 }));
 
 const Main = () => {
   const classes = useStyles();
-  const tasks = store.get("tasks");
+  const [tasks, setTasks] = useState(store.get("tasks"));
   const [open, setOpen] = useState(false);
+
+  store.onDidChange("tasks", (newTasks) => {
+    setTasks(newTasks);
+  });
 
   return (
     <div className={classes.root}>
@@ -54,7 +54,7 @@ const Main = () => {
         {tasks.map((task) => (
           <Task key={task.id} data={task} />
         ))}
-        <Fab className={classes.fab} onClick={() => setOpen(true)}>
+        <Fab onClick={() => setOpen(true)}>
           <AddIcon />
         </Fab>
         <AddTask open={open} handleClose={() => setOpen(false)} />

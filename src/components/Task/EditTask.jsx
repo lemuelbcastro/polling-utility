@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { MenuItem, TextField } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Store from "electron-store";
 
 import validationSchema from "./validationSchema";
+import ConfirmDialog from "../UI/ConfirmDialog.jsx";
+import Fab from "../UI/Fab.jsx";
 import FormDialog from "../UI/FormDialog.jsx";
 
 const store = new Store();
@@ -16,6 +19,7 @@ const EditTask = (props) => {
     defaultValues: task,
     resolver: yupResolver(validationSchema),
   });
+  const [openDialog, setOpenDialog] = useState(false);
   const settings = store.get("settings");
   const methods = ["GET", "POST", "PUT", "PATCH", "DELETE"];
 
@@ -32,7 +36,16 @@ const EditTask = (props) => {
     );
 
     store.set("tasks", updatedTasks);
-    
+
+    handleClose();
+  };
+
+  const onDelete = () => {
+    const tasks = store.get("tasks");
+    const updatedTasks = tasks.filter((element) => element.id !== task.id);
+
+    store.set("tasks", updatedTasks);
+
     handleClose();
   };
 
@@ -102,6 +115,17 @@ const EditTask = (props) => {
         error={errors?.refreshRate ? true : false}
         helperText={errors?.refreshRate?.message}
       />
+      <Fab onClick={() => setOpenDialog(true)}>
+        <DeleteIcon />
+      </Fab>
+      <ConfirmDialog
+        open={openDialog}
+        title="Delete Task"
+        handleClose={() => setOpenDialog(false)}
+        handleConfirm={onDelete}
+      >
+        Are you sure you want to delete this task?
+      </ConfirmDialog>
     </FormDialog>
   );
 };
