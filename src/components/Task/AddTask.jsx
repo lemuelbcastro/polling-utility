@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { MenuItem, TextField } from "@material-ui/core";
+import { FormControlLabel, MenuItem, Switch, TextField } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { v4 as uuidv4 } from "uuid";
@@ -21,6 +21,7 @@ const AddTask = (props) => {
         method: "",
       },
       refreshRate: "",
+      enabled: false,
     },
     resolver: yupResolver(validationSchema),
   });
@@ -99,6 +100,22 @@ const AddTask = (props) => {
         type="number"
         error={errors?.refreshRate ? true : false}
         helperText={errors?.refreshRate?.message}
+      />
+      <FormControlLabel
+        control={
+          <Controller
+            name="enabled"
+            control={control}
+            render={(props) => (
+              <Switch
+                onChange={(e) => props.onChange(e.target.checked)}
+                checked={props.value}
+                color="primary"
+              />
+            )}
+          />
+        }
+        label="Enabled"
       />
     </FormDialog>
   );

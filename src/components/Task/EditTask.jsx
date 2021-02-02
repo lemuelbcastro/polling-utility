@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { MenuItem, TextField } from "@material-ui/core";
+import { FormControlLabel, MenuItem, Switch, TextField } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -40,7 +40,7 @@ const EditTask = (props) => {
     handleClose();
   };
 
-  const onDelete = () => {
+  const handleDelete = () => {
     const tasks = store.get("tasks");
     const updatedTasks = tasks.filter((element) => element.id !== task.id);
 
@@ -115,6 +115,22 @@ const EditTask = (props) => {
         error={errors?.refreshRate ? true : false}
         helperText={errors?.refreshRate?.message}
       />
+      <FormControlLabel
+        control={
+          <Controller
+            name="enabled"
+            control={control}
+            render={(props) => (
+              <Switch
+                onChange={(e) => props.onChange(e.target.checked)}
+                checked={props.value}
+                color="primary"
+              />
+            )}
+          />
+        }
+        label="Enabled"
+      />
       <Fab onClick={() => setOpenDialog(true)}>
         <DeleteIcon />
       </Fab>
@@ -122,7 +138,10 @@ const EditTask = (props) => {
         open={openDialog}
         title="Delete Task"
         handleClose={() => setOpenDialog(false)}
-        handleConfirm={onDelete}
+        handleConfirm={() => {
+          setOpenDialog(false);
+          handleDelete();
+        }}
       >
         Are you sure you want to delete this task?
       </ConfirmDialog>

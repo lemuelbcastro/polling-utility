@@ -11,6 +11,7 @@ const validationSchema = yup.object().shape({
     .positive("Please provide a valid number")
     .required("This field is required")
     .typeError("This field is required"),
+  enabled: yup.bool(),
 });
 
 export default validationSchema;

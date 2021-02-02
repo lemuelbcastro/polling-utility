@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 const store = new Store();
 
 const Task = (props) => {
-  const { data } = props;
+  const { active, data } = props;
   const task = data;
   const classes = useStyles();
   const settings = store.get("settings");
@@ -52,7 +52,7 @@ const Task = (props) => {
   const [open, setOpen] = useState(false);
 
   useInterval(async () => {
-    if (!open) {
+    if (active && !open && task.enabled) {
       setProgress("indeterminate");
 
       try {
@@ -101,6 +101,7 @@ const Task = (props) => {
 };
 
 Task.propTypes = {
+  active: PropTypes.bool.isRequired,
   data: PropTypes.object.isRequired,
 };
 

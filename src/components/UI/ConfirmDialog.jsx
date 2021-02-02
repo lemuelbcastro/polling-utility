@@ -34,7 +34,7 @@ ConfirmDialog.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string,
   open: PropTypes.bool.isRequired,
-  dividers: PropTypes.bool.isRequired,
+  dividers: PropTypes.bool,
   handleClose: PropTypes.func.isRequired,
   handleConfirm: PropTypes.func.isRequired,
 };

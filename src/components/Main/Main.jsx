@@ -41,24 +41,27 @@ const useStyles = makeStyles((theme) => ({
 const Main = () => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(store.get("tasks"));
+  const [active, setActive] = useState(true);
   const [open, setOpen] = useState(false);
-
-  store.onDidChange("tasks", (newTasks) => {
-    setTasks(newTasks);
-  });
+  
+  useEffect(() => {  
+    store.onDidChange("tasks", (newTasks) => {
+      setTasks(newTasks);
+    });
+  }, []);
 
   return (
     <div className={classes.root}>
       <Header />
       <main className={classes.content}>
         {tasks.map((task) => (
-          <Task key={task.id} data={task} />
+          <Task key={task.id} active={active} data={task} />
         ))}
         <Fab onClick={() => setOpen(true)}>
           <AddIcon />
         </Fab>
-        <AddTask open={open} handleClose={() => setOpen(false)} />
       </main>
+      <AddTask open={open} handleClose={() => setOpen(false)} />
       <Footer />
     </div>
   );
