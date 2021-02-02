@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Typography } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import AssignmentIcon from "@material-ui/icons/Assignment";
+import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from "@material-ui/icons/Close";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import StopIcon from "@material-ui/icons/Stop";
 import Store from "electron-store";
 
 import Header from "../Header";
-import Footer from "../Footer";
 import Task from "../Task";
 import AddTask from "../Task/AddTask.jsx";
 import SpeedDial from "../UI/SpeedDial.jsx";
@@ -36,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     minHeight: "100vh",
-    paddingBottom: 50,
   },
   content: {
     height: "100%",
@@ -91,15 +89,13 @@ const Main = () => {
           <Task key={task.id} active={active} data={task} />
         ))}
         <SpeedDial
-          icon={<AssignmentIcon />}
+          icon={<MenuIcon />}
           openIcon={<CloseIcon />}
           actions={actions}
           className={classes.speedDial}
+          FabProps={{ color: "default" }}
         />
       </main>
-      <Footer>
-        <Typography variant="body1">{active ? "Running" : "Stopped"}</Typography>
-      </Footer>
       <AddTask open={open} handleClose={() => setOpen(false)} />
     </div>
   );

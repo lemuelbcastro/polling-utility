@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <React.Fragment>
-      <AppBar position="sticky" className={classes.root}>
+      <AppBar color="inherit" position="sticky">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Header

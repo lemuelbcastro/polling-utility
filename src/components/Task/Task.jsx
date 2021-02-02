@@ -9,12 +9,12 @@ import {
   Button,
   Divider,
   Typography,
-  LinearProgress,
 } from "@material-ui/core";
 import Store from "electron-store";
 
 import axios from "../../utils/axios";
 import useInterval from "../../utils/useInterval";
+import LinearProgress from "../UI/LinearProgress.jsx";
 import EditTask from "./EditTask.jsx";
 
 const useStyles = makeStyles((theme) => ({

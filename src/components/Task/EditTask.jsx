@@ -124,7 +124,7 @@ const EditTask = (props) => {
               <Switch
                 onChange={(e) => props.onChange(e.target.checked)}
                 checked={props.value}
-                color="primary"
+                color="default"
               />
             )}
           />

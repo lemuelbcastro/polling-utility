@@ -40,7 +40,7 @@ const FormDialog = (props) => {
       onClose={handleClose}
       TransitionComponent={Transition}
     >
-      <AppBar className={classes.appBar}>
+      <AppBar className={classes.appBar} color="inherit">
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={handleClose}>
             <CloseIcon />
