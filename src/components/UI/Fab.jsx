@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import { Fab } from "@material-ui/core";
+import { Fab as MaterialFab } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -11,20 +11,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FormDialog = (props) => {
+const Fab = (props) => {
   const { onClick, children } = props;
   const classes = useStyles();
 
   return (
-    <Fab className={classes.fab} onClick={onClick}>
+    <MaterialFab className={classes.fab} onClick={onClick}>
       {children}
-    </Fab>
+    </MaterialFab>
   );
 };
 
-FormDialog.propTypes = {
+Fab.propTypes = {
   onClick: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 
-export default FormDialog;
+export default Fab;
