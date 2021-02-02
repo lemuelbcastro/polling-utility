@@ -1,6 +1,10 @@
 import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
+  application: yup.object().shape({
+    title: yup.string().required("This field is required"),
+    headerText: yup.string().required("This field is required"),
+  }),
   apiBase: yup.object().shape({
     url: yup
       .string()
@@ -12,9 +16,7 @@ const validationSchema = yup.object().shape({
     enabled: yup.bool(),
   }),
   auth: yup.object().shape({
-    url: yup
-      .string()
-      .required("This field is required"),
+    url: yup.string().required("This field is required"),
     requestBody: yup
       .string()
       .test("isValidJson", "Please provide a valid JSON string", (value) => {

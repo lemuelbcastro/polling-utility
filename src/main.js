@@ -8,13 +8,33 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-Store.initRenderer();
+const store = new Store({
+  defaults: {
+    tasks: [],
+    settings: {
+      application: {
+        title: "",
+        headerText: "",
+      },
+      apiBase: {
+        url: "",
+        enabled: true,
+      },
+      auth: {
+        url: "",
+        requestBody: "",
+      },
+    },
+  },
+  watch: true,
+});
 
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 400,
     height: 600,
+    title: store.get("settings.application.title"),
     webPreferences: {
       nodeIntegration: true,
     },

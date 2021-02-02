@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import {
   AppBar,
@@ -7,8 +7,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
+import Store from "electron-store";
 
 import Settings from "../Settings";
+
+const store = new Store({ watch: true });
 
 const useStyles = makeStyles({
   flexGrow: {
@@ -19,13 +22,20 @@ const useStyles = makeStyles({
 const Header = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [text, setText] = useState(store.get("settings.application.headerText"));
+
+  useEffect(() => {
+    store.onDidChange("settings.application.headerText", (newText) => {
+      setText(newText);
+    });
+  }, []);
 
   return (
     <React.Fragment>
       <AppBar color="inherit" position="sticky">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Header
+            {text}
           </Typography>
           <div className={classes.flexGrow} />
           <IconButton

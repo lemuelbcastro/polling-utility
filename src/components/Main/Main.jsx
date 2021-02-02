@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Typography } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import StopIcon from "@material-ui/icons/Stop";
@@ -13,22 +12,7 @@ import Task from "../Task";
 import AddTask from "../Task/AddTask.jsx";
 import SpeedDial from "../UI/SpeedDial.jsx";
 
-const store = new Store({
-  defaults: {
-    tasks: [],
-    settings: {
-      apiBase: {
-        url: "",
-        enabled: true,
-      },
-      auth: {
-        url: "",
-        requestBody: "",
-      },
-    },
-  },
-  watch: true,
-});
+const store = new Store({ watch: true });
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -51,6 +51,33 @@ const Settings = (props) => {
       title="Settings"
     >
       <Typography variant="subtitle2" gutterBottom>
+        Application
+      </Typography>
+      <Controller
+        as={TextField}
+        control={control}
+        fullWidth
+        variant="outlined"
+        margin="dense"
+        label="Title"
+        name="application.title"
+        type="test"
+        error={errors?.application?.title ? true : false}
+        helperText={errors?.application?.title?.message}
+      />
+      <Controller
+        as={TextField}
+        control={control}
+        fullWidth
+        variant="outlined"
+        margin="dense"
+        label="Header Text"
+        name="application.headerText"
+        type="test"
+        error={errors?.application?.headerText ? true : false}
+        helperText={errors?.application?.headerText?.message}
+      />
+      <Typography variant="subtitle2" gutterBottom>
         API Base
       </Typography>
       <Controller
