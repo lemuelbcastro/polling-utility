@@ -19,10 +19,10 @@ const ConfirmDialog = (props) => {
         <DialogContentText>{children}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleClose}>
           Cancel
         </Button>
-        <Button onClick={handleConfirm} color="primary">
+        <Button onClick={handleConfirm}>
           Confirm
         </Button>
       </DialogActions>
