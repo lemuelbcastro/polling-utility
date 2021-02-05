@@ -18,9 +18,6 @@ import LinearProgress from "../UI/LinearProgress.jsx";
 import EditTask from "./EditTask.jsx";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    marginBottom: theme.spacing(1),
-  },
   get: {
     color: theme.palette.success[theme.palette.type],
   },

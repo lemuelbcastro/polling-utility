@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <React.Fragment>
-      <AppBar color="inherit" position="sticky">
+      <AppBar color="inherit" position="fixed">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             {text}

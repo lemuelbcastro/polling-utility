@@ -6,6 +6,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import StopIcon from "@material-ui/icons/Stop";
 import Store from "electron-store";
+import { Scrollbars } from "react-custom-scrollbars";
 
 import Header from "../Header";
 import Task from "../Task";
@@ -15,14 +16,15 @@ import SpeedDial from "../UI/SpeedDial.jsx";
 const store = new Store({ watch: true });
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
+  scrollbar: {
     minHeight: "100vh",
   },
+  offset: theme.mixins.toolbar,
   content: {
-    height: "100%",
-    padding: theme.spacing(1),
+    padding: theme.spacing(1.5),
+    "& > :not(:last-child)": {
+      marginBottom: theme.spacing(1.5),
+    },
   },
   speedDial: {
     zIndex: theme.zIndex.appBar + 1,
@@ -66,12 +68,15 @@ const Main = () => {
   }, []);
 
   return (
-    <div className={classes.root}>
+    <React.Fragment>
       <Header />
-      <main className={classes.content}>
-        {tasks.map((task) => (
-          <Task key={task.id} active={active} data={task} />
-        ))}
+      <Scrollbars autoHide className={classes.scrollbar}>
+        <div className={classes.offset} />
+        <main className={classes.content}>
+          {tasks.map((task) => (
+            <Task key={task.id} active={active} data={task} />
+          ))}
+        </main>
         <SpeedDial
           icon={<MenuIcon />}
           openIcon={<CloseIcon />}
@@ -79,9 +84,9 @@ const Main = () => {
           className={classes.speedDial}
           FabProps={{ color: "default" }}
         />
-      </main>
-      <AddTask open={open} handleClose={() => setOpen(false)} />
-    </div>
+        <AddTask open={open} handleClose={() => setOpen(false)} />
+      </Scrollbars>
+    </React.Fragment>
   );
 };
 
