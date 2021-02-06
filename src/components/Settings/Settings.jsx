@@ -59,18 +59,6 @@ const Settings = (props) => {
         fullWidth
         variant="outlined"
         margin="dense"
-        label="Title"
-        name="application.title"
-        type="test"
-        error={errors?.application?.title ? true : false}
-        helperText={errors?.application?.title?.message}
-      />
-      <Controller
-        as={TextField}
-        control={control}
-        fullWidth
-        variant="outlined"
-        margin="dense"
         label="Header Text"
         name="application.headerText"
         type="test"

@@ -6,12 +6,10 @@ import "fontsource-roboto";
 
 import theme from './theme'
 import Main from "./components/Main";
-import Title from "./components/Title";
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline/>
-    <Title />
     <Main />
   </ThemeProvider>,
   document.getElementById("root")

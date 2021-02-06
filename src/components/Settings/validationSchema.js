@@ -2,7 +2,6 @@ import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
   application: yup.object().shape({
-    title: yup.string().required("This field is required"),
     headerText: yup.string().required("This field is required"),
   }),
   apiBase: yup.object().shape({
