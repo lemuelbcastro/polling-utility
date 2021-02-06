@@ -36,7 +36,7 @@ module.exports = [
   },
   {
     test: /\.(woff|woff2|eot|ttf|otf)$/i,
-    use: [{ loader: "file-loader" }],
+    use: [{ loader: "url-loader" }],
   },
   // Put your webpack loader rules in this array.  This is where you would put
   // your ts-loader configuration for instance:
