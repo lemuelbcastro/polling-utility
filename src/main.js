@@ -1,6 +1,6 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu, Tray } = require("electron");
 const path = require("path");
-const Store = require('electron-store');
+const Store = require("electron-store");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -13,7 +13,6 @@ const store = new Store({
     tasks: [],
     settings: {
       application: {
-        title: "",
         headerText: "",
       },
       apiBase: {
@@ -29,22 +28,61 @@ const store = new Store({
   watch: true,
 });
 
+let mainWindow = null;
+let tray = null;
+
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 400,
-    height: 600,
-    title: store.get("settings.application.title"),
+    height: 700,
+    title: "",
+    icon: __dirname + "/icon.ico",
     webPreferences: {
       nodeIntegration: true,
     },
   });
+
+  mainWindow.setMenuBarVisibility(false);
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  mainWindow.on("minimize", (event) => {
+    event.preventDefault();
+    mainWindow.setSkipTaskbar(true);
+    createTray();
+  });
+
+  mainWindow.on("restore", () => {
+    mainWindow.show();
+    mainWindow.setSkipTaskbar(false);
+    tray.destroy();
+  });
+};
+
+const createTray = () => {
+  tray = new Tray(__dirname + "/icon.ico");
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: "Show",
+      click: () => mainWindow.show(),
+    },
+    {
+      label: "Quit",
+      click: () => app.quit(),
+    },
+  ]);
+
+  tray.setContextMenu(contextMenu);
+
+  tray.on("click", () => {
+    mainWindow.show()
+  });
 };
 
 // This method will be called when Electron has finished
