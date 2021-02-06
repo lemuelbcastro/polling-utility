@@ -69,8 +69,16 @@ const createTray = () => {
 
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: "Show",
+      label: "Show Window",
       click: () => mainWindow.show(),
+    },
+    {
+      label: "Start Tasks",
+      click: () => mainWindow.webContents.send("tasks-start"),
+    },
+    {
+      label: "Stop Tasks",
+      click: () => mainWindow.webContents.send("tasks-stop"),
     },
     {
       label: "Quit",
