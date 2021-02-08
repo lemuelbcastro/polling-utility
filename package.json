@@ -1,8 +1,8 @@
 {
-  "name": "electron-app",
-  "productName": "electron-app",
+  "name": "polling-utility",
+  "productName": "Polling Utility",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Electron application for HTTP polling",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -24,7 +24,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "electron_app"
+            "name": "polling_utility"
           }
         },
         {
