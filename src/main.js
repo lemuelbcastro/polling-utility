@@ -17,7 +17,7 @@ const store = new Store({
       },
       apiBase: {
         url: "",
-        enabled: true,
+        enabled: false,
       },
       auth: {
         url: "",
@@ -36,7 +36,6 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 400,
     height: 700,
-    // title: "",
     icon: __dirname + "/icon.ico",
     webPreferences: {
       nodeIntegration: true,
