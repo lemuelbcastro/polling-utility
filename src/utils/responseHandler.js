@@ -8,26 +8,32 @@ const store = new Store();
 const handler = {
   success: (response) => response,
   error: async (error) => {
-    const { response } = error;
+    const { response, config } = error;
 
     if (response) {
       switch (response.status) {
         case 401:
           const { apiBase, auth } = store.get("settings");
 
-          const response = await axios.post(auth.url, JSON.parse(auth.requestBody), {
-            baseURL: apiBase.enabled ? apiBase.url : undefined,
-          });
+          if (auth.url !== config.url) {
+            const response = await axios.post(
+              auth.url,
+              JSON.parse(auth.requestBody),
+              {
+                baseURL: apiBase.enabled ? apiBase.url : undefined,
+              }
+            );
 
-          const { token } = response.data;
+            const { token } = response.data;
 
-          session.create({ token });
+            session.create({ token });
+          }
 
           break;
         default:
       }
     }
-    
+
     return Promise.reject(error);
   },
 };
