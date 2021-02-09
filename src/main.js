@@ -29,15 +29,18 @@ const store = new Store({
     },
   },
 });
-
+const windowSize = {
+  width: 400,
+  height: 700,
+};
 let mainWindow = null;
 let tray = null;
 
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 400,
-    height: 700,
+    width: windowSize.width,
+    height: windowSize.height,
     frame: false,
     resizable: false,
     webPreferences: {
@@ -134,6 +137,14 @@ const createMenu = () => {
       submenu: [
         { role: "reload" },
         { role: "forceReload" },
+        {
+          label: "Reset Window",
+          accelerator: "CmdOrCtrl+Shift+E",
+          click: () => {
+            mainWindow.setSize(windowSize.width, windowSize.height);
+            mainWindow.center();
+          },
+        },
         { type: "separator" },
         {
           label: "Toggle Window Resize",
