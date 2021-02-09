@@ -2,6 +2,7 @@ import Store from "electron-store";
 
 import axios from "./axios";
 import session from "./session";
+import snackbarHelper from "./snackbarHelper";
 
 const store = new Store();
 
@@ -29,6 +30,9 @@ const handler = {
             session.create({ token });
           } else {
             store.set("application.active", false);
+            snackbarHelper.error("Authentication failed", {
+              autoHideDuration: 3000,
+            });
           }
 
           break;
