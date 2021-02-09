@@ -10,10 +10,12 @@ if (require("electron-squirrel-startup")) {
 
 const store = new Store({
   defaults: {
+    application: {
+      active: false,
+    },
     tasks: [],
     settings: {
       application: {
-        active: false,
         headerText: "",
       },
       apiBase: {
@@ -70,11 +72,11 @@ const createTray = () => {
     },
     {
       label: "Start Tasks",
-      click: () => store.set("settings.application.active", true),
+      click: () => store.set("application.active", true),
     },
     {
       label: "Stop Tasks",
-      click: () => store.set("settings.application.active", false),
+      click: () => store.set("application.active", false),
     },
     {
       label: "Quit",

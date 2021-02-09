@@ -35,7 +35,7 @@ const Main = () => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(store.get("tasks"));
   const [active, setActive] = useState(
-    store.get("settings.application.active")
+    store.get("application.active")
   );
   const [open, setOpen] = useState(false);
 
@@ -44,14 +44,14 @@ const Main = () => {
       icon: <StopIcon />,
       name: "Stop",
       onClick: () => {
-        store.set("settings.application.active", false);
+        store.set("application.active", false);
       },
     },
     {
       icon: <PlayArrowIcon />,
       name: "Start",
       onClick: () => {
-        store.set("settings.application.active", true);
+        store.set("application.active", true);
       },
     },
     {
@@ -64,7 +64,7 @@ const Main = () => {
   ];
 
   useEffect(() => {
-    store.onDidChange("settings.application.active", (newValue) => {
+    store.onDidChange("application.active", (newValue) => {
       setActive(newValue);
     });
 

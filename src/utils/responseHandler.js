@@ -28,7 +28,7 @@ const handler = {
 
             session.create({ token });
           } else {
-            store.set("settings.application.active", false);
+            store.set("application.active", false);
           }
 
           break;
