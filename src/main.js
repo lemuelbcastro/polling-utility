@@ -130,7 +130,7 @@ const createMenu = () => {
       ],
     },
     {
-      label: "Developer",
+      label: "View",
       submenu: [
         { role: "reload" },
         { role: "forceReload" },
@@ -141,7 +141,6 @@ const createMenu = () => {
           click: () => mainWindow.setResizable(!mainWindow.resizable),
         },
         { role: "toggleDevTools" },
-        
       ],
     },
   ];
