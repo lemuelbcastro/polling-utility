@@ -13,6 +13,7 @@ const store = new Store({
     tasks: [],
     settings: {
       application: {
+        active: false,
         headerText: "",
       },
       apiBase: {
@@ -25,7 +26,6 @@ const store = new Store({
       },
     },
   },
-  watch: true,
 });
 
 let mainWindow = null;
@@ -70,11 +70,11 @@ const createTray = () => {
     },
     {
       label: "Start Tasks",
-      click: () => mainWindow.webContents.send("tasks-start"),
+      click: () => store.set("settings.application.active", true),
     },
     {
       label: "Stop Tasks",
-      click: () => mainWindow.webContents.send("tasks-stop"),
+      click: () => store.set("settings.application.active", false),
     },
     {
       label: "Quit",

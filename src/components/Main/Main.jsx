@@ -7,7 +7,6 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import StopIcon from "@material-ui/icons/Stop";
 import Store from "electron-store";
 import { Scrollbars } from "react-custom-scrollbars";
-import { ipcRenderer } from "electron";
 
 import Header from "../Header";
 import Task from "../Task";
@@ -35,7 +34,9 @@ const useStyles = makeStyles((theme) => ({
 const Main = () => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(store.get("tasks"));
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(
+    store.get("settings.application.active")
+  );
   const [open, setOpen] = useState(false);
 
   const actions = [
@@ -43,14 +44,14 @@ const Main = () => {
       icon: <StopIcon />,
       name: "Stop",
       onClick: () => {
-        setActive(false);
+        store.set("settings.application.active", false);
       },
     },
     {
       icon: <PlayArrowIcon />,
       name: "Start",
       onClick: () => {
-        setActive(true);
+        store.set("settings.application.active", true);
       },
     },
     {
@@ -63,12 +64,13 @@ const Main = () => {
   ];
 
   useEffect(() => {
+    store.onDidChange("settings.application.active", (newValue) => {
+      setActive(newValue);
+    });
+
     store.onDidChange("tasks", (newTasks) => {
       setTasks(newTasks);
     });
-
-    ipcRenderer.on("tasks-start", () => setActive(true));
-    ipcRenderer.on("tasks-stop", () => setActive(false));
   }, []);
 
   return (

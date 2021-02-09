@@ -27,6 +27,8 @@ const handler = {
             const { token } = response.data;
 
             session.create({ token });
+          } else {
+            store.set("settings.application.active", false);
           }
 
           break;
