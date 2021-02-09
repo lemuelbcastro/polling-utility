@@ -75,7 +75,7 @@ const Main = () => {
 
   return (
     <React.Fragment>
-      <Header />
+      <Header active={active} />
       <Scrollbars autoHide className={classes.scrollbar}>
         <div className={classes.offset} />
         <main className={classes.content}>
