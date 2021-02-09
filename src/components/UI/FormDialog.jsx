@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   form: {
     padding: theme.spacing(2),
   },
+  container: {
+    paddingTop: "30px",
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -39,6 +42,7 @@ const FormDialog = (props) => {
       open={open}
       onClose={handleClose}
       TransitionComponent={Transition}
+      classes={{ container: classes.container }}
     >
       <AppBar className={classes.appBar} color="inherit">
         <Toolbar>

@@ -38,8 +38,10 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 400,
     height: 700,
-    icon: __dirname + "/icon.ico",
+    frame: false,
+    resizable: false,
     webPreferences: {
+      enableRemoteModule: true,
       nodeIntegration: true,
     },
   });
@@ -60,6 +62,8 @@ const createWindow = () => {
     mainWindow.setSkipTaskbar(false);
     tray.destroy();
   });
+
+  createMenu();
 };
 
 const createTray = () => {
@@ -71,11 +75,11 @@ const createTray = () => {
       click: () => mainWindow.show(),
     },
     {
-      label: "Start Tasks",
+      label: "Start Polling",
       click: () => store.set("application.active", true),
     },
     {
-      label: "Stop Tasks",
+      label: "Stop Polling",
       click: () => store.set("application.active", false),
     },
     {
@@ -87,8 +91,63 @@ const createTray = () => {
   tray.setContextMenu(contextMenu);
 
   tray.on("click", () => {
-    mainWindow.show()
+    mainWindow.show();
   });
+};
+
+const createMenu = () => {
+  const template = [
+    {
+      label: "File",
+      submenu: [
+        {
+          label: "Settings",
+          accelerator: "CmdOrCtrl+,",
+          click: () => mainWindow.webContents.send("settings-show"),
+        },
+        { type: "separator" },
+        { role: "quit" },
+      ],
+    },
+    {
+      label: "Tasks",
+      submenu: [
+        {
+          label: "Add New",
+          accelerator: "F2",
+          click: () => mainWindow.webContents.send("tasks-add"),
+        },
+        {
+          label: "Start Polling",
+          accelerator: "F3",
+          click: () => store.set("application.active", true),
+        },
+        {
+          label: "Stop Polling",
+          accelerator: "F4",
+          click: () => store.set("application.active", false),
+        },
+      ],
+    },
+    {
+      label: "Developer",
+      submenu: [
+        { role: "reload" },
+        { role: "forceReload" },
+        { type: "separator" },
+        {
+          label: "Toggle Window Resize",
+          accelerator: "CmdOrCtrl+Shift+W",
+          click: () => mainWindow.setResizable(!mainWindow.resizable),
+        },
+        { role: "toggleDevTools" },
+        
+      ],
+    },
+  ];
+  const menu = Menu.buildFromTemplate(template);
+
+  Menu.setApplicationMenu(menu);
 };
 
 // This method will be called when Electron has finished

@@ -7,6 +7,7 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import StopIcon from "@material-ui/icons/Stop";
 import Store from "electron-store";
 import { Scrollbars } from "react-custom-scrollbars";
+import { ipcRenderer } from "electron";
 
 import Header from "../Header";
 import Task from "../Task";
@@ -17,7 +18,7 @@ const store = new Store({ watch: true });
 
 const useStyles = makeStyles((theme) => ({
   scrollbar: {
-    minHeight: "100vh",
+    minHeight: "95vh",
   },
   offset: theme.mixins.toolbar,
   content: {
@@ -71,6 +72,8 @@ const Main = () => {
     store.onDidChange("tasks", (newTasks) => {
       setTasks(newTasks);
     });
+
+    ipcRenderer.on("tasks-add", () => setOpen(true));
   }, []);
 
   return (

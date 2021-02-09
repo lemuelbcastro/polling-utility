@@ -6,6 +6,7 @@ import { AppBar, IconButton, Toolbar, Typography } from "@material-ui/core";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Store from "electron-store";
+import { ipcRenderer } from "electron";
 
 import Settings from "../Settings";
 
@@ -38,11 +39,13 @@ const Header = (props) => {
     store.onDidChange("settings.application.headerText", (newText) => {
       setText(newText);
     });
+
+    ipcRenderer.on("settings-show", () => setOpen(true));
   }, []);
 
   return (
     <React.Fragment>
-      <AppBar color="inherit" position="fixed">
+      <AppBar color="inherit" position="absolute">
         <Toolbar>
           <RadioButtonCheckedIcon
             className={clsx(classes.icon, active ? classes.active : classes.inactive)}
