@@ -77,6 +77,7 @@ const createTray = () => {
       label: "Show Window",
       click: () => mainWindow.show(),
     },
+    { type: "separator" },
     {
       label: "Start Polling",
       click: () => store.set("application.active", true),
@@ -85,6 +86,7 @@ const createTray = () => {
       label: "Stop Polling",
       click: () => store.set("application.active", false),
     },
+    { type: "separator" },
     {
       label: "Quit",
       click: () => app.quit(),
