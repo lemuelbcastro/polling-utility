@@ -101,7 +101,7 @@ const createTray = () => {
 };
 
 const createMenu = () => {
-  const template = [
+  const menu = Menu.buildFromTemplate([
     {
       label: "File",
       submenu: [
@@ -156,12 +156,11 @@ const createMenu = () => {
         {
           label: "Toggle Developer Tools",
           accelerator: "CmdOrCtrl+Shift+I",
-          click: () => mainWindow.webContents.openDevTools({ mode: 'detach' }),
+          click: () => mainWindow.webContents.openDevTools({ mode: "detach" }),
         },
       ],
     },
-  ];
-  const menu = Menu.buildFromTemplate(template);
+  ]);
 
   Menu.setApplicationMenu(menu);
 };
