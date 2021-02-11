@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
 import {
+  Avatar,
   Card,
-  CardActionArea,
+  CardHeader,
   CardContent,
   CardActions,
   Button,
   Divider,
-  Typography,
 } from "@material-ui/core";
+import CheckIcon from "@material-ui/icons/Check";
+import CloseIcon from "@material-ui/icons/Close";
 import Store from "electron-store";
 
 import axios from "../../utils/axios";
@@ -18,6 +20,9 @@ import LinearProgress from "../UI/LinearProgress.jsx";
 import EditTask from "./EditTask.jsx";
 
 const useStyles = makeStyles((theme) => ({
+  cardHeaderContent: {
+    overflow: "hidden",
+  },
   get: {
     color: theme.palette.success[theme.palette.type],
   },
@@ -33,8 +38,8 @@ const useStyles = makeStyles((theme) => ({
   delete: {
     color: theme.palette.error[theme.palette.type],
   },
-  progressBar: {
-    marginTop: theme.spacing(2),
+  cardContent: {
+    paddingTop: theme.spacing(0),
   },
 }));
 
@@ -67,25 +72,28 @@ const Task = (props) => {
   return (
     <React.Fragment>
       <Card className={classes.root}>
-        <CardActionArea>
-          <CardContent>
-            <Typography gutterBottom variant="h6" component="h2">
-              {task.title}
-            </Typography>
-            <Typography variant="body2" component="p">
+        <CardHeader
+          classes={{ content: classes.cardHeaderContent }}
+          avatar={
+            <Avatar>
+              {task.enabled ? <CheckIcon /> : <CloseIcon />}
+            </Avatar>
+          }
+          title={task.title}
+          subheader={
+            <React.Fragment>
               <span className={classes[task.request.method.toLowerCase()]}>
                 {task.request.method}
               </span>{" "}
               {task.request.url}
-            </Typography>
-            <LinearProgress
-              className={classes.progressBar}
-              variant={progress}
-              value={0}
-            />
-          </CardContent>
-          <Divider />
-        </CardActionArea>
+            </React.Fragment>
+          }
+          subheaderTypographyProps={{ noWrap: true }}
+        />
+        <CardContent className={classes.cardContent}>
+          <LinearProgress variant={progress} value={0} />
+        </CardContent>
+        <Divider />
         <CardActions>
           <Button size="small" onClick={() => setOpen(true)}>
             Configure
