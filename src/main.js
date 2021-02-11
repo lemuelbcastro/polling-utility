@@ -151,7 +151,11 @@ const createMenu = () => {
           accelerator: "CmdOrCtrl+Shift+W",
           click: () => mainWindow.setResizable(!mainWindow.resizable),
         },
-        { role: "toggleDevTools" },
+        {
+          label: "Toggle Developer Tools",
+          accelerator: "CmdOrCtrl+Shift+I",
+          click: () => mainWindow.webContents.openDevTools({ mode: 'detach' }),
+        },
       ],
     },
   ];
