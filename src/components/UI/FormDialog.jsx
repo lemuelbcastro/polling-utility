@@ -43,6 +43,7 @@ const FormDialog = (props) => {
       onClose={handleClose}
       TransitionComponent={Transition}
       classes={{ container: classes.container }}
+      disableEnforceFocus
     >
       <AppBar className={classes.appBar} color="inherit">
         <Toolbar>
