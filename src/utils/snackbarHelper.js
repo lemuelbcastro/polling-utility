@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSnackbar } from 'notistack';
+import React from "react";
+import { useSnackbar } from "notistack";
 
 const InnerSnackbarHelperConfigurator = (props) => {
   props.setUseSnackbarRef(useSnackbar());
@@ -18,18 +18,18 @@ export const SnackbarHelperConfigurator = () => (
 
 export default {
   success(message, options = {}) {
-    this.toast(message, { ...options, variant: 'success' });
+    this.toast(message, { ...options, variant: "success" });
   },
   warning(message, options = {}) {
-    this.toast(message, { ...options, variant: 'warning' });
+    this.toast(message, { ...options, variant: "warning" });
   },
   info(message, options = {}) {
-    this.toast(message, { ...options, variant: 'info' });
+    this.toast(message, { ...options, variant: "info" });
   },
   error(message, options = {}) {
-    this.toast(message, { ...options, variant: 'error' });
+    this.toast(message, { ...options, variant: "error" });
   },
-  toast(message, options = { variant: 'default' }) {
+  toast(message, options = { variant: "default" }) {
     useSnackbarRef.enqueueSnackbar(message, options);
-  }
+  },
 };

@@ -19,12 +19,8 @@ const ConfirmDialog = (props) => {
         <DialogContentText>{children}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>
-          Cancel
-        </Button>
-        <Button onClick={handleConfirm}>
-          Confirm
-        </Button>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleConfirm}>Confirm</Button>
       </DialogActions>
     </Dialog>
   );

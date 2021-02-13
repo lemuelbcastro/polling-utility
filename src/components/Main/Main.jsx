@@ -35,9 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const Main = () => {
   const classes = useStyles();
   const [tasks, setTasks] = useState(store.get("tasks"));
-  const [active, setActive] = useState(
-    store.get("application.active")
-  );
+  const [active, setActive] = useState(store.get("application.active"));
   const [open, setOpen] = useState(false);
 
   const actions = [

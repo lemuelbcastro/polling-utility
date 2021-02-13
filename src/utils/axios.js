@@ -1,13 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
 import {
   success as requestSuccessHandler,
   error as requestErrorHandler,
-} from './requestHandler';
+} from "./requestHandler";
 import {
   success as responseSuccessHandler,
   error as responseErrorHandler,
-} from './responseHandler';
+} from "./responseHandler";
 
 const instance = axios.create();
 

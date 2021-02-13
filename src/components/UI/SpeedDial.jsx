@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SpeedDial = (props) => {
-  const { actions, icon, openIcon, className, ...rest  } = props;
+  const { actions, icon, openIcon, className, ...rest } = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -41,7 +41,6 @@ const SpeedDial = (props) => {
     >
       {actions.map((action) => (
         <SpeedDialAction
-        
           key={action.name}
           icon={action.icon}
           tooltipTitle={action.name}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import clsx from 'clsx';
+import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import { AppBar, IconButton, Toolbar, Typography } from "@material-ui/core";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
@@ -48,7 +48,10 @@ const Header = (props) => {
       <AppBar color="inherit" position="absolute">
         <Toolbar>
           <RadioButtonCheckedIcon
-            className={clsx(classes.icon, active ? classes.active : classes.inactive)}
+            className={clsx(
+              classes.icon,
+              active ? classes.active : classes.inactive
+            )}
           />
           <Typography variant="h6" className={classes.title}>
             {text}
