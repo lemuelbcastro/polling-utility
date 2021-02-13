@@ -17,6 +17,9 @@
     "name": "Lemuel Castro",
     "email": "lemuelbercasiocastro@gmail.com"
   },
+  "prettier": {
+    "endOfLine": "auto"
+  },
   "license": "MIT",
   "config": {
     "forge": {
