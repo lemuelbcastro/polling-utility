@@ -10,12 +10,11 @@ const handler = {
   success: (response) => response,
   error: async (error) => {
     const { response, config } = error;
+    const { apiBase, auth } = store.get("settings");
 
     if (response) {
       switch (response.status) {
         case 401:
-          const { apiBase, auth } = store.get("settings");
-
           if (auth.url !== config.url) {
             const response = await axios.post(
               auth.url,

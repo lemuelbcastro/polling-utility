@@ -22,12 +22,10 @@ const validationSchema = yup.object().shape({
         try {
           let parsed = JSON.parse(value);
 
-          if (parsed && typeof parsed === "object") {
-            return true;
-          }
-        } catch (e) {}
-
-        return false;
+          return parsed && typeof parsed === "object";
+        } catch (e) {
+          return false;
+        }
       })
       .required("This field is required"),
   }),

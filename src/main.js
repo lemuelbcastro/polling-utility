@@ -1,5 +1,4 @@
 const { app, BrowserWindow, Menu, Tray } = require("electron");
-const path = require("path");
 const Store = require("electron-store");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -52,6 +51,7 @@ const createWindow = () => {
   mainWindow.setMenuBarVisibility(false);
 
   // and load the index.html of the app.
+  // eslint-disable-next-line no-undef
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   mainWindow.on("minimize", (event) => {

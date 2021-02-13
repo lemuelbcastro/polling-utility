@@ -57,13 +57,11 @@ const Task = (props) => {
     if (active && !open && task.enabled) {
       setProgress("indeterminate");
 
-      try {
-        await axios({
-          method: task.request.method,
-          url: task.request.url,
-          baseURL: settings.apiBase.enabled ? settings.apiBase.url : undefined,
-        });
-      } catch {}
+      await axios({
+        method: task.request.method,
+        url: task.request.url,
+        baseURL: settings.apiBase.enabled ? settings.apiBase.url : undefined,
+      });
 
       setProgress("determinate");
     }
@@ -75,9 +73,7 @@ const Task = (props) => {
         <CardHeader
           classes={{ content: classes.cardHeaderContent }}
           avatar={
-            <Avatar>
-              {task.enabled ? <CheckIcon /> : <CloseIcon />}
-            </Avatar>
+            <Avatar>{task.enabled ? <CheckIcon /> : <CloseIcon />}</Avatar>
           }
           title={task.title}
           subheader={
