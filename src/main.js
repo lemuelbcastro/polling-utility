@@ -42,6 +42,7 @@ const createWindow = () => {
     height: windowSize.height,
     frame: false,
     resizable: false,
+    backgroundColor: "#303030",
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
