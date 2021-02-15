@@ -16,22 +16,24 @@ const handler = {
       switch (response.status) {
         case 401:
           if (auth.url !== config.url) {
-            const response = await axios.post(
-              auth.url,
-              JSON.parse(auth.requestBody),
-              {
-                baseURL: apiBase.enabled ? apiBase.url : undefined,
-              }
-            );
+            try {
+              const response = await axios.post(
+                auth.url,
+                JSON.parse(auth.requestBody),
+                {
+                  baseURL: apiBase.enabled ? apiBase.url : undefined,
+                }
+              );
 
-            const { token } = response.data;
+              const { token } = response.data;
 
-            session.create({ token });
-          } else {
-            store.set("application.active", false);
-            snackbarHelper.error("Authentication failed", {
-              autoHideDuration: 3000,
-            });
+              session.create({ token });
+            } catch (e) {
+              store.set("application.active", false);
+              snackbarHelper.error("Authentication failed", {
+                autoHideDuration: 3000,
+              });
+            }
           }
 
           break;

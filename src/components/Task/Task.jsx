@@ -57,11 +57,14 @@ const Task = (props) => {
     if (active && !open && task.enabled) {
       setProgress("indeterminate");
 
-      await axios({
-        method: task.request.method,
-        url: task.request.url,
-        baseURL: settings.apiBase.enabled ? settings.apiBase.url : undefined,
-      });
+      try {
+        await axios({
+          method: task.request.method,
+          url: task.request.url,
+          baseURL: settings.apiBase.enabled ? settings.apiBase.url : undefined,
+        });
+        // eslint-disable-next-line no-empty
+      } catch {}
 
       setProgress("determinate");
     }
