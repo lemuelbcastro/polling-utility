@@ -54,30 +54,19 @@ const createWindow = () => {
   // eslint-disable-next-line no-undef
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  mainWindow.on("minimize", (event) => {
+  mainWindow.on("close", (event) => {
     event.preventDefault();
-    mainWindow.setSkipTaskbar(true);
-    createTray();
-  });
-
-  mainWindow.on("restore", () => {
-    mainWindow.show();
-    mainWindow.setSkipTaskbar(false);
-    tray.destroy();
+    mainWindow.hide();
   });
 
   createMenu();
+  createTray();
 };
 
 const createTray = () => {
   tray = new Tray(__dirname + "/icon.ico");
 
   const contextMenu = Menu.buildFromTemplate([
-    {
-      label: "Show Window",
-      click: () => mainWindow.show(),
-    },
-    { type: "separator" },
     {
       label: "Start Polling",
       click: () => store.set("application.active", true),
@@ -89,7 +78,10 @@ const createTray = () => {
     { type: "separator" },
     {
       label: "Quit",
-      click: () => app.quit(),
+      click: () => {
+        mainWindow.destroy();
+        app.quit();
+      },
     },
   ]);
 
@@ -111,7 +103,14 @@ const createMenu = () => {
           click: () => mainWindow.webContents.send("settings-show"),
         },
         { type: "separator" },
-        { role: "quit" },
+        {
+          label: "Quit",
+          accelerator: "CmdOrCtrl+Q",
+          click: () => {
+            mainWindow.destroy();
+            app.quit();
+          },
+        },
       ],
     },
     {
