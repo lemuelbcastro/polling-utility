@@ -89,7 +89,11 @@ const createTray = () => {
   tray.setContextMenu(contextMenu);
 
   tray.on("click", () => {
-    mainWindow.show();
+    if (mainWindow.isVisible()) {
+      mainWindow.hide();
+    } else {
+      mainWindow.show();
+    }
   });
 };
 
