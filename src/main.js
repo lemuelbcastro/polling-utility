@@ -27,6 +27,7 @@ const store = new Store({
       },
     },
   },
+  watch: true,
 });
 const windowSize = {
   width: 400,
@@ -67,14 +68,12 @@ const createWindow = () => {
 const createTray = () => {
   tray = new Tray(__dirname + "/icon.ico");
 
+  const active = store.get("application.active");
+
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: "Start Polling",
-      click: () => store.set("application.active", true),
-    },
-    {
-      label: "Stop Polling",
-      click: () => store.set("application.active", false),
+      label: `${active ? "Stop" : "Start"} Polling`,
+      click: () => store.set("application.active", !active),
     },
     { type: "separator" },
     {
@@ -193,3 +192,8 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+store.onDidChange("application.active", () => {
+  tray.destroy();
+  createTray();
+});
