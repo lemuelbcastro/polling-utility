@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import Store from "electron-store";
 
-const store = new Store({ watch: true });
+import store from "../../utils/store";
 
 const Title = () => {
   const [title, setTitle] = useState(store.get("settings.application.title"));

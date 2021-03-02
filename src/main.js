@@ -1,5 +1,5 @@
-const { app, BrowserWindow, Menu, Tray } = require("electron");
-const Store = require("electron-store");
+import { app, BrowserWindow, Menu, Tray } from "electron";
+import store from "./utils/store";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -7,28 +7,6 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-const store = new Store({
-  defaults: {
-    application: {
-      active: false,
-    },
-    tasks: [],
-    settings: {
-      application: {
-        headerText: "",
-      },
-      apiBase: {
-        url: "",
-        enabled: false,
-      },
-      auth: {
-        url: "",
-        requestBody: "",
-      },
-    },
-  },
-  watch: true,
-});
 const windowSize = {
   width: 400,
   height: 700,

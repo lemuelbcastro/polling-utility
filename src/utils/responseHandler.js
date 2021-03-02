@@ -1,10 +1,7 @@
-import Store from "electron-store";
-
 import axios from "./axios";
 import session from "./session";
+import store from "./store";
 import snackbarHelper from "./snackbarHelper";
-
-const store = new Store();
 
 const handler = {
   success: (response) => response,

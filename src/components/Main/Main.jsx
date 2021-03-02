@@ -5,16 +5,14 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import StopIcon from "@material-ui/icons/Stop";
-import Store from "electron-store";
 import { Scrollbars } from "react-custom-scrollbars";
 import { ipcRenderer } from "electron";
 
+import store from "../../utils/store";
 import Header from "../Header";
 import Task from "../Task";
 import AddTask from "../Task/AddTask.jsx";
 import SpeedDial from "../UI/SpeedDial.jsx";
-
-const store = new Store({ watch: true });
 
 const useStyles = makeStyles((theme) => ({
   scrollbar: {

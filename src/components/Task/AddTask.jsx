@@ -9,12 +9,10 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { v4 as uuidv4 } from "uuid";
-import Store from "electron-store";
 
+import store from "../../utils/store";
 import validationSchema from "./validationSchema";
 import FormDialog from "../UI/FormDialog.jsx";
-
-const store = new Store();
 
 const AddTask = (props) => {
   const { open, handleClose } = props;

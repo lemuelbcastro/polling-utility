@@ -11,11 +11,11 @@ import {
   Divider,
 } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
-import CloseIcon from "@material-ui/icons/Close";
-import Store from "electron-store";
+import CloseIcon from "@material-ui/icons/Close";;
 
 import axios from "../../utils/axios";
 import useInterval from "../../utils/useInterval";
+import store from "../../utils/store";
 import LinearProgress from "../UI/LinearProgress.jsx";
 import EditTask from "./EditTask.jsx";
 
@@ -42,8 +42,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(0),
   },
 }));
-
-const store = new Store();
 
 const Task = (props) => {
   const { active, data } = props;

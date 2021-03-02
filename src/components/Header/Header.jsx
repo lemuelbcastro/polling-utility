@@ -5,12 +5,10 @@ import { makeStyles } from "@material-ui/styles";
 import { AppBar, IconButton, Toolbar, Typography } from "@material-ui/core";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import SettingsIcon from "@material-ui/icons/Settings";
-import Store from "electron-store";
 import { ipcRenderer } from "electron";
 
+import store from "../../utils/store";
 import Settings from "../Settings";
-
-const store = new Store({ watch: true });
 
 const useStyles = makeStyles((theme) => ({
   icon: {

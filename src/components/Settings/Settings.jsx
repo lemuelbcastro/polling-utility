@@ -10,8 +10,8 @@ import {
 } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Store from "electron-store";
 
+import store from "../../utils/store";
 import validationSchema from "./validationSchema";
 import FormDialog from "../UI/FormDialog.jsx";
 
@@ -20,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 0),
   },
 }));
-
-const store = new Store();
 
 const Settings = (props) => {
   const { open, handleClose } = props;

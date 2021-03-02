@@ -9,14 +9,12 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Store from "electron-store";
 
+import store from "../../utils/store";
 import validationSchema from "./validationSchema";
 import ConfirmDialog from "../UI/ConfirmDialog.jsx";
 import Fab from "../UI/Fab.jsx";
 import FormDialog from "../UI/FormDialog.jsx";
-
-const store = new Store();
 
 const EditTask = (props) => {
   const { open, handleClose, task } = props;
