@@ -11,9 +11,10 @@ import {
   Divider,
 } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
-import CloseIcon from "@material-ui/icons/Close";;
+import CloseIcon from "@material-ui/icons/Close";
 
 import axios from "../../utils/axios";
+import { createLogger } from "../../utils/logger";
 import useInterval from "../../utils/useInterval";
 import store from "../../utils/store";
 import LinearProgress from "../UI/LinearProgress.jsx";
@@ -48,6 +49,7 @@ const Task = (props) => {
   const task = data;
   const classes = useStyles();
   const settings = store.get("settings");
+  const logger = createLogger();
   const [progress, setProgress] = useState("determinate");
   const [open, setOpen] = useState(false);
 
@@ -61,8 +63,9 @@ const Task = (props) => {
           url: task.request.url,
           baseURL: settings.apiBase.enabled ? settings.apiBase.url : undefined,
         });
-        // eslint-disable-next-line no-empty
-      } catch {}
+      } catch (error) {
+        logger.info("Task request failed", { task, error });
+      }
 
       setProgress("determinate");
     }

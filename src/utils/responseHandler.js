@@ -2,6 +2,9 @@ import axios from "./axios";
 import session from "./session";
 import store from "./store";
 import snackbarHelper from "./snackbarHelper";
+import { createLogger } from "./logger";
+
+const logger = createLogger();
 
 const handler = {
   success: (response) => response,
@@ -25,11 +28,17 @@ const handler = {
               const { token } = response.data;
 
               session.create({ token });
-            } catch (e) {
+            } catch (error) {
               store.set("application.active", false);
-              snackbarHelper.error("Authentication failed", {
-                autoHideDuration: 3000,
-              });
+
+              snackbarHelper.error(
+                "Authentication failed. Polling process terminated",
+                {
+                  autoHideDuration: 3000,
+                }
+              );
+
+              logger.info("Authentication failed", { error });
             }
           }
 
