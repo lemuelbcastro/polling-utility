@@ -55,7 +55,7 @@ const SpeedDial = (props) => {
 };
 
 SpeedDial.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   icon: PropTypes.node.isRequired,
   openIcon: PropTypes.node.isRequired,
   actions: PropTypes.arrayOf(
