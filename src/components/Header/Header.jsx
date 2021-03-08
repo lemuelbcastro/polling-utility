@@ -5,9 +5,11 @@ import { makeStyles } from "@material-ui/styles";
 import { AppBar, IconButton, Toolbar, Typography } from "@material-ui/core";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import SettingsIcon from "@material-ui/icons/Settings";
+import NotesIcon from "@material-ui/icons/Notes";
 import { ipcRenderer } from "electron";
 
 import store from "../../utils/store";
+import Logs from "../Logs";
 import Settings from "../Settings";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
   const { active } = props;
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState({ settings: false, logs: false });
   const [text, setText] = useState(
     store.get("settings.application.headerText")
   );
@@ -58,13 +60,27 @@ const Header = (props) => {
           <IconButton
             edge="start"
             color="inherit"
-            onClick={() => setOpen(true)}
+            onClick={() => setOpen({ ...open, logs: true })}
+          >
+            <NotesIcon />
+          </IconButton>
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={() => setOpen({ ...open, settings: true })}
           >
             <SettingsIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Settings open={open} handleClose={() => setOpen(false)} />
+      <Logs
+        open={open.logs}
+        handleClose={() => setOpen({ ...open, logs: false })}
+      />
+      <Settings
+        open={open.settings}
+        handleClose={() => setOpen({ ...open, settings: false })}
+      />
     </React.Fragment>
   );
 };
