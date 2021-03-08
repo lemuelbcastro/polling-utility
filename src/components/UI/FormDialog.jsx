@@ -1,36 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  AppBar,
-  Dialog,
-  IconButton,
-  Toolbar,
-  Typography,
-  Slide,
-} from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+import { IconButton } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 
+import Dialog from "./Dialog.jsx";
+
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: "relative",
-  },
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
-  },
   form: {
     padding: theme.spacing(2),
   },
-  container: {
-    paddingTop: "30px",
-  },
 }));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 const FormDialog = (props) => {
   const { open, handleClose, handleSubmit, title, children } = props;
@@ -38,31 +18,20 @@ const FormDialog = (props) => {
 
   return (
     <Dialog
-      fullScreen
       open={open}
       onClose={handleClose}
-      TransitionComponent={Transition}
-      classes={{ container: classes.container }}
-      disableEnforceFocus
+      title={title}
+      actions={
+        <IconButton
+          edge="start"
+          color="inherit"
+          type="submit"
+          form="form-dialog"
+        >
+          <SaveIcon />
+        </IconButton>
+      }
     >
-      <AppBar className={classes.appBar} color="inherit">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            {title}
-          </Typography>
-          <IconButton
-            edge="start"
-            color="inherit"
-            type="submit"
-            form="form-dialog"
-          >
-            <SaveIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
       <form id="form-dialog" className={classes.form} onSubmit={handleSubmit}>
         {children}
       </form>
