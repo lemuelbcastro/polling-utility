@@ -1,5 +1,6 @@
 import Store from "electron-store";
 import { format, formatISO, isValid, parseISO } from "date-fns";
+import { v4 as uuidv4 } from "uuid";
 
 const createStore = (name) =>
   new Store({
@@ -13,6 +14,7 @@ const createStore = (name) =>
 const log = (level, message, context) => {
   const store = createStore(format(new Date(), "MMddyyyy"));
   const logs = store.get("logs").concat({
+    id: uuidv4(),
     date: formatISO(new Date()),
     level,
     message,
