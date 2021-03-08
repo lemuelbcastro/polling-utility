@@ -38,7 +38,7 @@ const handler = {
                 }
               );
 
-              logger.info("Authentication failed", { error });
+              logger.error("Authentication failed", { error });
             }
           }
 

@@ -64,7 +64,7 @@ const Task = (props) => {
           baseURL: settings.apiBase.enabled ? settings.apiBase.url : undefined,
         });
       } catch (error) {
-        logger.info("Task request failed", { task, error });
+        logger.error("Task request failed", { task, error });
       }
 
       setProgress("determinate");
